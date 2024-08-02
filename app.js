@@ -55,8 +55,14 @@ const showWinner = (winner) =>{
     disableboxes();
 };
 
+const draw=() =>{
+    msg.innerText=`It's a Draw Match`;
+    msgcontainer.classList.remove("hide");
+    disableboxes();
+}
 
 const checkWinner=() =>{
+    let boxcount=0;
     for (let pattern of winPatterns){
         let pos1=boxes[pattern[0]].innerText;
         let pos2=boxes[pattern[1]].innerText;
@@ -65,10 +71,21 @@ const checkWinner=() =>{
             if(pos1===pos2 && pos2===pos3){
                 console.log("winner",pos1);
                 showWinner(pos1);
+                return;
             }
+        }     
+    }
+    
+    for(let box of boxes){
+        if(box.innerText!=""){
+            boxcount++;
         }
     }
-};
+    if(boxcount===boxes.length){
+        console.log("It's a draw!");
+        draw();
+    }
+    };
 
 newbtn.addEventListener("click",reset);
 resetbtn.addEventListener("click",reset);
